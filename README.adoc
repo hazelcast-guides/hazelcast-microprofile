@@ -1,0 +1,120 @@
+:github-address: https://github.com/hazelcast-guides/hazelcast-microprofile
+:templates-url: https://raw.githubusercontent.com/hazelcast-guides/adoc-templates/master
+:framework: Microprofile
+
+= Getting Started with Hazelcast using Microprofile
+
+This guide will get you started to use Hazelcast in a Microprofile application.
+
+include::{templates-url}/link-to-repo.adoc[]
+
+== What You’ll Learn
+
+include::{templates-url}/microservices/what-you-will-learn.adoc[]
+
+== Prerequisites
+
+include::{templates-url}/microservices/prerequisites.adoc[]
+
+== Configuring Hazelcast
+
+Before starting to use Hazelcast inside the application, let's configure it in `HazelcastApplication.java`:
+
+[source, java]
+----
+@Produces
+HazelcastInstance create() {
+    Config config = new Config();
+    // all other configurations (networking,
+    // listeners, etc.) can be set here.
+    MapConfig mapConfig = new MapConfig();
+    mapConfig.setName(MAP_NAME);
+    mapConfig.setTimeToLiveSeconds(30);
+    config.addMapConfig(mapConfig);
+    return Hazelcast.newHazelcastInstance(config);
+}
+----
+
+`create()` method will supply HazelcastInstance wherever it is injected:
+
+[source, java]
+----
+@Inject
+HazelcastInstance instance;
+----
+
+Now that we have a HazelcastInstance, we can reach to the distributed map over the instance:
+
+[source, java]
+----
+private IMap<Integer,String> getDistributedMap() {
+    return instance.getMap(HazelcastApplication.MAP_NAME);
+}
+----
+
+NOTE: Since we call the map with `MAP_NAME` - which we configured before, it will have 30 seconds of time-to-live.
+
+And that's all! The distributed map is ready to use now.
+[source, java]
+----
+IMap<Integer,String> map = getDistributedMap();
+map.put(1, "value");
+map.get(1);
+map.putIfAbsent(1, "another_value");
+----
+
+Now, let's start up two different servers and deploy the applications.
+
+Start the first server listening on port 9080:
+
+----
+$ cd server1
+$ mvn install liberty:run-server
+----
+
+In another terminal session, start the second server listening on port 9081:
+
+----
+$ cd server2
+$ mvn install liberty:run-server
+----
+
+After two servers are up and ready, you will see the logs:
+
+----
+The HazelcastGuides1 server is ready to run a smarter planet.
+...
+The HazelcastGuides2 server is ready to run a smarter planet.
+----
+
+Let's give it a try:
+
+----
+$ curl -X PUT "http://localhost:9080/application/map/put?key=1&value=greetings_from_server1"
+Put: greetings_from_server1. Old value was: null
+
+$ curl -X GET "http://localhost:9081/application/map/get?key=1"
+{ 1 : greetings_from_server1 }
+
+$ curl -X PUT "http://localhost:9081/application/map/put?key=2&value=cool"
+Put: cool. Old value was: null
+
+$ curl -X GET "http://localhost:9080/application/map/list"
+Size: 2
+{ 1: greetings_from_server1 }
+{ 2: cool }
+----
+
+Note that after 30 seconds, these values will be evicted.
+
+== Summary
+
+In this guide, we developed a simple application that stores the data in a
+Hazelcast instance. We started two application instances, and they formed a
+Hazelcast cluster. Since the data was shared among Hazelcast cluster instances,
+we could access it from both application instances.
+
+== See Also
+
+- https://github.com/hazelcast-guides/hazelcast-embedded-springboot[Getting Started with Hazelcast using Spring Boot
+]
