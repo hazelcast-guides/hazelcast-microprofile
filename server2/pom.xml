@@ -5,39 +5,20 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>net.wasdev.wlp.maven.parent</groupId>
-        <artifactId>liberty-maven-app-parent</artifactId>
-        <version>2.7</version>
+        <groupId>com.hazelcast.guides</groupId>
+        <artifactId>hazelcast-microprofile-root</artifactId>
+        <version>1.0</version>
+        <relativePath>../pom.xml</relativePath>
     </parent>
 
-    <groupId>com.hazelcast.guides</groupId>
-    <artifactId>hazelcast-microprofile-2</artifactId>
-    <version>1.0</version>
+    <artifactId>server2</artifactId>
     <packaging>war</packaging>
 
-
     <properties>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <maven.compiler.source>1.8</maven.compiler.source>
-        <maven.compiler.target>1.8</maven.compiler.target>
-
-        <version.maven-war-plugin>3.3.0</version.maven-war-plugin>
-
-        <!-- Hazelcast -->
-        <version.hazelcast>4.0.1</version.hazelcast>
-
-        <!-- OpenLiberty runtime -->
-        <version.openliberty-runtime>RELEASE</version.openliberty-runtime>
         <server.name>HazelcastGuides2</server.name>
         <http.port>9081</http.port>
-        <https.port>9443</https.port>
-        <packaging.type>usr</packaging.type>
-        <app.name>${project.artifactId}</app.name>
-        <package.file>${project.build.directory}/${app.name}.zip</package.file>
     </properties>
 
-    <!-- Profiles for temporarily switching packaging types -->
     <profiles>
         <profile>
             <id>runnable-package</id>
@@ -59,47 +40,6 @@
         </profile>
     </profiles>
 
-    <dependencyManagement>
-        <dependencies>
-            <dependency>
-                <groupId>io.openliberty.features</groupId>
-                <artifactId>features-bom</artifactId>
-                <version>20.0.0.6</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-        </dependencies>
-    </dependencyManagement>
-
-    <dependencies>
-        <!-- Hazelcast Dependencies -->
-        <dependency>
-            <groupId>com.hazelcast</groupId>
-            <artifactId>hazelcast</artifactId>
-            <version>${version.hazelcast}</version>
-        </dependency>
-
-        <!-- Open Liberty Features -->
-        <dependency>
-            <groupId>io.openliberty.features</groupId>
-            <artifactId>jaxrs-2.1</artifactId>
-            <type>esa</type>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>io.openliberty.features</groupId>
-            <artifactId>jsonp-1.1</artifactId>
-            <type>esa</type>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>io.openliberty.features</groupId>
-            <artifactId>cdi-2.0</artifactId>
-            <type>esa</type>
-            <scope>provided</scope>
-        </dependency>
-    </dependencies>
-
     <build>
         <finalName>${project.artifactId}</finalName>
         <plugins>
@@ -112,7 +52,6 @@
                     <packagingExcludes>pom.xml</packagingExcludes>
                 </configuration>
             </plugin>
-            <!-- Enable liberty-maven plugin -->
             <plugin>
                 <groupId>net.wasdev.wlp.maven.plugins</groupId>
                 <artifactId>liberty-maven-plugin</artifactId>
