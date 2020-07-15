@@ -14,5 +14,5 @@
 
     <variable name="io_openliberty_guides_system_inMaintenance" value="false"/>
 
-    <webApplication location="hazelcast-microprofile-1.war" contextRoot="/" />
+    <webApplication location="server1.war" contextRoot="/" />
 </server>
