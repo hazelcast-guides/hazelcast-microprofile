@@ -63,20 +63,22 @@ map.get(1);
 map.putIfAbsent(1, "another_value");
 ----
 
-Now, let's start up two different servers and deploy the applications.
+Now, let's build the servers and then deploy the applications.
+
+----
+$ mvn clean install
+----
 
 Start the first server listening on port 9080:
 
 ----
-$ cd server1
-$ mvn install liberty:run-server
+$ mvn -pl server1 liberty:run-server
 ----
 
 In another terminal session, start the second server listening on port 9081:
 
 ----
-$ cd server2
-$ mvn install liberty:run-server
+$ mvn -pl server2 liberty:run-server
 ----
 
 After two servers are up and ready, you will see the logs:
