@@ -115,8 +115,3 @@ In this guide, we developed a simple application that stores the data in a
 Hazelcast instance. We started two application instances, and they formed a
 Hazelcast cluster. Since the data was shared among Hazelcast cluster instances,
 we could access it from both application instances.
-
-== See Also
-
-- https://github.com/hazelcast-guides/hazelcast-embedded-springboot[Getting Started with Hazelcast using Spring Boot
-]
