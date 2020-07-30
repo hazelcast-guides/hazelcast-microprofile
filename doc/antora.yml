@@ -1,4 +1,4 @@
-name: hazelcast-microprofile
+name: hazelcast-embedded-microprofile
 title: Getting Started with Hazelcast using Microprofile
 version: master
 
