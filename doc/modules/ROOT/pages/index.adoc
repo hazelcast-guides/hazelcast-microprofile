@@ -10,9 +10,13 @@ include::{templates-url}/link-to-repo.adoc[]
 
 == What You’ll Learn
 
-include::{templates-url}/microservices/what-you-will-learn.adoc[]
+In this guide, you will learn how to use Hazelcast IMDG within Microprofile microservices.
+
+The Microprofile application contains three endpoints which helps you to put, read and list the data. The application initializes a single Hazelcast IMDG member instance which is used to keep the data. When you run the application multiple times, Hazelcast IMDG instances build a cluster and share the data.
+
 
 == Prerequisites
+- ~ 10 mins
 
 include::{templates-url}/microservices/prerequisites.adoc[]
 
@@ -62,6 +66,8 @@ map.put(1, "value");
 map.get(1);
 map.putIfAbsent(1, "another_value");
 ----
+
+== Running the Microprofile Application
 
 Now, let's build the servers and then deploy the applications.
 
@@ -115,3 +121,8 @@ In this guide, we developed a simple application that stores the data in a
 Hazelcast instance. We started two application instances, and they formed a
 Hazelcast cluster. Since the data was shared among Hazelcast cluster instances,
 we could access it from both application instances.
+
+== See Also
+
+- xref:hazelcast-embedded-springboot:ROOT:index.adoc[Hazelcast Embedded Spring Boot]
+- xref:hazelcast-client-quarkus:ROOT:index.adoc[Hazelcast Client for Quarkus]
