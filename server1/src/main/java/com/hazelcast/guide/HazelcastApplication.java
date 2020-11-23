@@ -27,7 +27,7 @@ public class HazelcastApplication extends Application {
         return HazelcastClient.newHazelcastClient(clientConfig);
     }
 
-    //Create Hazelcast instance along with the application
+    //Create embedded Hazelcast instance along with the application
     /*@Produces
     HazelcastInstance create() {
         Config config = new Config();
