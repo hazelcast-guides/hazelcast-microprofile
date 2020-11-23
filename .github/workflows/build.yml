@@ -29,9 +29,11 @@ jobs:
           key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
           restore-keys: ${{ runner.os }}-maven-
 
-      - name: Build and test
+      - name: Build and test in client mode
         run: |
           mvn clean install
+
+          mvn -pl server1 exec:java -Dexec.mainClass="com.hazelcast.guide.HazelcastServer" > /dev/null 2>&1 &
 
           mvn -pl server1 liberty:run-server > /dev/null 2>&1 &
           mvn -pl server2 liberty:run-server > /dev/null 2>&1 &
