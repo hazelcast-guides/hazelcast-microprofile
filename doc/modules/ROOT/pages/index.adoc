@@ -41,13 +41,12 @@ Before starting to use Hazelcast inside the application, let's configure it in `
 Client::
 +
 --
-[NOTE]
-====
-You need to have a running Hazelcast cluster before using client. `com.hazelcast.guide.HazelcastServer` will 
+
+NOTE: You need to have a running Hazelcast cluster before using client. `com.hazelcast.guide.HazelcastServer` will 
 start an instance with default configuration. When you start it multiple times, you will see Hazelcast members starting,
-finding each other and forming a cluster. You can also try Hazelcast CLI[https://github.com/hazelcast/hazelcast-command-line]
+finding each other and forming a cluster. You can also try https://github.com/hazelcast/hazelcast-command-line[Hazelcast CLI]
 for starting members.
-====
+
 [source, java]
 ----
 @Produces
@@ -78,6 +77,7 @@ HazelcastInstance create() {
     return Hazelcast.newHazelcastInstance(config);
 }
 ----
+--
 ====
 
 `create()` method will supply HazelcastInstance wherever it is injected:
