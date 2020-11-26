@@ -34,18 +34,19 @@ include::{templates-url}/microservices/prerequisites.adoc[]
 
 == Configuring Hazelcast
 
-Before starting to use Hazelcast inside the application, let's configure it in `HazelcastApplication.java`:
+Note that if you will use embedded Hazelcast instances, members will be created within your application and
+form a cluster automatically. However, if you will use Hazelcast client, you need to have a running Hazelcast
+cluster. You can have one with one of these methods:
+include::{templates-url}/start-hz-cluster.adoc[]
+{empty} +
+
+Let's configure our HazelcastInstance in `HazelcastApplication.java`:
 
 [tabs]
 ====
 Client::
 +
 --
-
-NOTE: You need to have a running Hazelcast cluster before using client. `com.hazelcast.guide.HazelcastServer` will 
-start an instance with default configuration. When you start it multiple times, you will see Hazelcast members starting,
-finding each other and forming a cluster. You can also try https://github.com/hazelcast/hazelcast-command-line[Hazelcast CLI]
-for starting members.
 
 [source, java]
 ----
